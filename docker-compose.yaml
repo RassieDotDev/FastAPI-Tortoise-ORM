@@ -1,0 +1,29 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    volumes:
+      - .:/app/  
+    environment: 
+      - DATABASE_URL=postgres://root:admin@postgres:5432/database
+      - JWT_KEY=8c6bf0f1b38792f53b1eea89cdf30109a1eceba49d2f0258cd50d31ea4562da7
+      - SENDGRID_API_KEY=<YOUR SENDGRID API KEY>
+    ports:
+      - 8008:8000
+
+  postgres:
+    container_name: postgres
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "database"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: unless-stopped
