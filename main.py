@@ -7,7 +7,6 @@ app = FastAPI()
 
 app.include_router(users.router)
 app.include_router(utilities.router)
-app.include_router(trip.router)
 
 
 @app.on_event("startup")
