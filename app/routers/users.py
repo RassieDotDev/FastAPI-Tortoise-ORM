@@ -28,7 +28,7 @@ async def create_user(user: UserIn_Pydantic):
     user_obj.password_hash = bcrypt.hash(user.password_hash)
     await user_obj.save()
     verification_token = await create_verification_token(user_obj)
-    send_mail(user_obj.email, "VanUse - Activate Account", f'<strong>{verification_token.token}</strong>')
+    send_mail(user_obj.email, "Activate Account", f'<strong>{verification_token.token}</strong>')
     return await User_Pydantic.from_tortoise_orm(user_obj)
 
 
