@@ -13,7 +13,6 @@ class User(Model):
     mobile_number = fields.CharField(max_length=13, unique=True)
     status = fields.CharField(max_length=50)
     is_active = fields.BooleanField(null=True, default=False)
-    is_driver = fields.BooleanField(null=True, default=False)
 
     def verify_password(self, password):
         return bcrypt.verify(password, self.password_hash)
